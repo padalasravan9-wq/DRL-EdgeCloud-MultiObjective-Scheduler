@@ -1,1 +1,80 @@
+# ==========================================
+# DRL Edge-Cloud Scheduler Hyperparameters
+# ==========================================
 
+# -----------------------------
+# Training Settings
+# -----------------------------
+training:
+  episodes: 1500
+  max_steps_per_episode: 200
+  batch_size: 64
+  learning_rate: 0.001
+  gamma: 0.99
+  target_update_frequency: 1000
+  replay_buffer_size: 50000
+  early_stop_patience: 100
+
+# -----------------------------
+# Exploration (ε-greedy)
+# -----------------------------
+exploration:
+  epsilon_start: 1.0
+  epsilon_min: 0.01
+  epsilon_decay: 0.995
+
+# -----------------------------
+# Neural Network Architecture
+# -----------------------------
+network:
+  input_dim: 100          # after PCA (approx.)
+  hidden_layers: [256, 128, 64]
+  activation: relu
+  dropout: 0.2
+  optimizer: adam
+  loss: mse
+
+# -----------------------------
+# Reward Weights (Base)
+# -----------------------------
+reward_weights:
+  latency: 0.35
+  energy: 0.25
+  sla: 0.30
+  overload: 0.10
+
+# -----------------------------
+# Dynamic Weight Adaptation
+# -----------------------------
+adaptive_rules:
+  peak_load_threshold: 0.80
+  offpeak_threshold: 0.40
+  sla_boost: 1.40
+  overload_boost: 1.40
+  energy_boost: 1.30
+  priority_boost: 1.35
+
+# -----------------------------
+# Environment Settings
+# -----------------------------
+environment:
+  num_edge_devices: 20
+  num_cloud_servers: 3
+  max_tasks_in_queue: 10
+  latency_range_ms: [1, 100]
+  bandwidth_range_mbps: [1, 1000]
+
+# -----------------------------
+# Reproducibility
+# -----------------------------
+reproducibility:
+  seed_file: "../seeds.txt"
+  deterministic: true
+
+# -----------------------------
+# Logging
+# -----------------------------
+logging:
+  save_results: true
+  results_path: "../results/"
+  log_interval: 10
