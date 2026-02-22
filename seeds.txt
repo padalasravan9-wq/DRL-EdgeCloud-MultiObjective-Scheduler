@@ -1,1 +1,11 @@
 
+# Random seeds used in the experiments for reproducibility
+# Each run of the model uses one of the following seeds.
+
+42
+123
+2025
+777
+999
+31415
+27182
