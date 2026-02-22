@@ -1,1 +1,114 @@
+# ==========================================
+# iFogSim Configuration for Edge–Cloud DRL Scheduler
+# ==========================================
 
+# -----------------------------
+# Topology Configuration
+# -----------------------------
+topology:
+  num_edge_devices: 20
+  num_gateways: 5
+  num_cloud_datacenters: 1
+  hierarchy_depth: 3
+
+# -----------------------------
+# Edge Device Configuration
+# -----------------------------
+edge_device:
+  mips: 3000
+  ram_mb: 4096
+  uplink_bw_mbps: 1000
+  downlink_bw_mbps: 1000
+  busy_power_w: 6.5
+  idle_power_w: 2.1
+  level: 1
+
+# -----------------------------
+# Gateway Configuration
+# -----------------------------
+gateway:
+  mips: 5000
+  ram_mb: 8192
+  uplink_bw_mbps: 5000
+  downlink_bw_mbps: 5000
+  busy_power_w: 12.0
+  idle_power_w: 4.0
+  level: 2
+
+# -----------------------------
+# Cloud Configuration
+# -----------------------------
+cloud:
+  mips: 10000
+  ram_mb: 16384
+  uplink_bw_mbps: 10000
+  downlink_bw_mbps: 10000
+  busy_power_w: 95.0
+  idle_power_w: 70.0
+  level: 3
+
+# -----------------------------
+# Application Modules
+# -----------------------------
+application:
+  modules:
+    - name: sensor_processor
+      mips: 1000
+      ram_mb: 1024
+
+    - name: edge_analytics
+      mips: 1500
+      ram_mb: 2048
+
+    - name: cloud_aggregator
+      mips: 2500
+      ram_mb: 4096
+
+# -----------------------------
+# Tuple (Task) Configuration
+# -----------------------------
+tuples:
+  cpu_length_range: [1000, 10000]
+  nw_length_range: [500, 5000]
+  tuple_type: sensor_data
+  utilization_model: full
+
+# -----------------------------
+# Workload Model
+# -----------------------------
+workload:
+  arrival_model: poisson
+  arrival_rate_lambda: 5
+  max_tuples: 1000
+
+# -----------------------------
+# Network Latency Model
+# -----------------------------
+latency:
+  edge_to_gateway_ms: [2, 10]
+  gateway_to_cloud_ms: [20, 80]
+  edge_to_cloud_direct_ms: [25, 100]
+
+# -----------------------------
+# Mobility (optional but good for reviewers)
+# -----------------------------
+mobility:
+  enabled: false
+  mobility_model: static
+
+# -----------------------------
+# Simulation Control
+# -----------------------------
+simulation:
+  scheduling_interval: 1.0
+  simulation_time: 10000
+  enable_energy_model: true
+  enable_network_model: true
+
+# -----------------------------
+# Output
+# -----------------------------
+output:
+  save_logs: true
+  log_path: "../../results/ifogsim_logs/"
+  save_metrics: true
