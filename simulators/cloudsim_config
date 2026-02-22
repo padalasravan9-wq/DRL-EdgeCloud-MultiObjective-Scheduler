@@ -1,1 +1,103 @@
+# ==========================================
+# CloudSim++ Configuration for Edge–Cloud DRL Scheduler
+# ==========================================
 
+# -----------------------------
+# Datacenter Configuration
+# -----------------------------
+datacenter:
+  architecture: x86
+  os: Linux
+  vmm: Xen
+  time_zone: 10.0
+  cost_per_sec: 0.01
+  cost_per_mem: 0.005
+  cost_per_storage: 0.001
+  cost_per_bw: 0.0
+
+# -----------------------------
+# Cloud Hosts
+# -----------------------------
+cloud_hosts:
+  num_hosts: 3
+  host_config:
+    mips: 10000
+    ram_mb: 16384
+    storage_mb: 1000000
+    bw_mbps: 10000
+    pes: 8
+
+# -----------------------------
+# Edge Devices (modeled in CloudSim layer)
+# -----------------------------
+edge_devices:
+  num_devices: 20
+  device_config:
+    mips: 3000
+    ram_mb: 4096
+    storage_mb: 100000
+    bw_mbps: 1000
+    pes: 4
+    energy_model:
+      max_power_w: 6.5
+      idle_power_w: 2.1
+
+# -----------------------------
+# VM Configuration
+# -----------------------------
+vm:
+  cloud_vm:
+    mips: 2500
+    ram_mb: 4096
+    bw_mbps: 1000
+    size_mb: 10000
+    pes: 2
+
+  edge_vm:
+    mips: 1000
+    ram_mb: 2048
+    bw_mbps: 500
+    size_mb: 5000
+    pes: 1
+
+# -----------------------------
+# Task / Cloudlet Configuration
+# -----------------------------
+tasks:
+  length_mi_range: [1000, 10000]
+  file_size_mb: 300
+  output_size_mb: 300
+  utilization_model: full
+
+# -----------------------------
+# Network Configuration
+# -----------------------------
+network:
+  edge_to_cloud_latency_ms_range: [1, 100]
+  edge_bandwidth_mbps_range: [10, 1000]
+  cloud_bandwidth_mbps: 10000
+
+# -----------------------------
+# Workload Generation
+# -----------------------------
+workload:
+  type: poisson
+  arrival_rate_lambda: 5
+  max_tasks: 1000
+
+# -----------------------------
+# Simulation Control
+# -----------------------------
+simulation:
+  scheduling_interval: 1.0
+  simulation_time: 10000
+  enable_energy_model: true
+  enable_network_model: true
+
+# -----------------------------
+# Output
+# -----------------------------
+output:
+  save_logs: true
+  log_path: "../../results/cloudsim_logs/"
+  save_metrics: true
